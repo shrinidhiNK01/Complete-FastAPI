@@ -1,0 +1,138 @@
+step1 :- First install virtual environment :- For synchrinization with other projects :- python -m venv First =>First=our own name
+step2 :- First\Scripts\activate.bat
+step3 :- pip install fastapi[all]  ,pip freeze(list all installation)
+step4 :- Postman install
+http://127.0.0.1:8888/docs  => All communication with Postman =>That user Interface is called swagger UI
+http://127.0.0.1:8888/redoc => All communication with Postman =>That user Interface is called swagger UI
+
+app folder => main.py & __init__.py  ==> uvicorn app.main:app --reload --port 8888
+
+/////////////////////////////////////////////////
+1)install postgres
+
+2)postgres->right click ->regiter->server
+3)localhost->databases->create
+4)right click on the table -> view/edit data->all rows
+5)to add new coloumn in the created table ==> table right click ->propperties->add column-> 
+6)right click on the created table to appear the coloumn
+7)right click on table for writing queries
+
+
+for queries
+
+IF NOT NULL constraints-> edit in cloumns(properties)->default=NOW()=>
+
+datatypes in pgadmin:-
+============================
+Integer, character varying, serial for primary key ,timestamp and timestop
+
+
+
+NOTE:-
+=========
+FastAPI:- Framework to build API's 
+Pydantic (BaseModel) → Validates request data, 
+psycopg2 → Direct PostgreSQL connection , connection to python to database  ,pip install psycopg2
+SQLAlchemy → ORM (clean DB handling)
+Depends → Dependency injection (used for DB session)
+models → Table definitions
+database → DB connection setup
+
+
+get:-
+==========
+             Get
+      |--------------->|
+system|<---------------|API
+      |      Data      |
+=================================================================
+Post:-
+==========
+             Data
+      |--------------->|
+system|<---------------|API
+      |post(title,content)|
+
+Post:-
+================
+postman -> post+link paste ->send -->body --> raw -->json content 
+json content ==> {
+                        "text":"Hi im Rasputin",
+                        "content":"I am God, God is Great"
+                 }
+
+
+Why do we need Schema:-
+========================
+its pain to get all the values from the body
+the client can send whatever the data they want 
+the data isn't getting validated
+we ultimately want to force the client to send the data in schema that we except 
+Explectly defining how the data looks like 
+So , Pydantic is used,and It is alone itself a Library =>It tells data we want should be in which datatype
+
+CRUD Operation:-
+=====================
+create = Post =/posts
+read = Get =/posts/:id  and /posts
+Update = Put = /posts/:id
+Delete = Delete = /posts/:id
+
+Status Code Responses:-
+=============================
+100 :- Continue
+101 :- Switching Protocol
+102 :- Processing 
+103 :- Early Hints 
+
+200 :- ok
+201 :- Created
+202 :- Accepted
+203 :- Non-Authoriative Information
+204 :- No-Content 
+
+300 :- Multiple choice
+302 :- Found
+
+400 :- Bad request
+401 :- Unauthorized
+402 :- Payment Required 
+403 :- Forbidden
+404 :- Not Found
+
+500 :- Internal Server Error
+501 :- Not Implemented 
+502 :- Bad Gateway
+503 :- Service Unavailable
+
+
+DataBases:-
+==============
+Relational DataBase:-
+==================
+1)MYSQL
+2)PostgreSQL
+3)Oracle
+4)SQL Server 
+
+NonSQL/NonRelational DataBase:-
+==============================
+1)MongoDB
+2)AWS DynamoDB
+3)Oracle 
+4)SQL Server
+
+default:- NOW() :- for created_at timestamp at PostgreSQL
+ 
+some sql:-
+===========
+where name like 'TV'
+where name like 'TV%'
+where name like '%TV'
+where name like '%TV%'
+where name like '%T%V%'
+where name not like '%T%V%'
+order by id limit 5
+order by id limit 5 offset 5
+insert into products (name,price,inventory) values('God',78,90)
+delete from products where price >100 returning *
