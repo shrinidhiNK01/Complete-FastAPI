@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from typing import Optional 
 from random import randrange
 import psycopg2
-from psycopg2.extras import RealDictCursor
+from psycopg2.extras import RealDictCursor  # type: ignore[import]
 
 app=FastAPI()
 

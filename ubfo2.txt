@@ -1,0 +1,40 @@
+Backend Principles:-
+============================
+1)High Level Understanding
+2)HTTP Protocol :- Communication Establishment
+3)Routing :- Client Request to Server
+4)Serialization and Deserialisation
+5)Authentication and Authorization
+6)Validation and Transformation
+7)Middlewares
+8)Request Content
+9)Handlers and Controllers
+10)CRUD DeepDive
+11)RestAPI
+12)DataBases
+13)Buisness Logic Layer
+14)Caching
+15)Transactional Emails
+16)Task Queuing and Scheduling
+17)ElasticSearch
+18)Error Handling
+19)Config Management
+20)Logging, Monitoring, and Observability
+21)Graceful Shutdown
+22)Security
+23)Scaling and Performance
+24)Concurrency and Parallelism
+25)Object Storage and Large Files
+26)RealTime Backend Systems
+27)Testing and Code quality
+28)12 factor app Principles
+29)openapi standard
+30)Webhooks
+31)Devops for Backend
+
+
+HTTP Protocol :- Communication Establishment
+===============================================
+Medium through which browser speak with Servers, To communicate with each other
+1)Statelessness
+2)Client server model

@@ -56,14 +56,14 @@ def get_post(id:int,response:Response):  #By default path parameter is string, s
 
 # Delete
 
-def find_post(id:int):
+def find_index_post(id:int):
     for i,j in enumerate(my_post):
         if j['id']==id:
             return i
 
 @app.delete("/posts/{id}",status_code=status.HTTP_204_NO_CONTENT)
 def delete_post(id:int):
-    index=find_post(id)
+    index=find_index_post(id)
     if index == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"Post with id {id} is not found")
     my_post.pop(index)
@@ -72,7 +72,7 @@ def delete_post(id:int):
 # Update
 @app.put("/posts/{id}")
 def update_post(id:int,post:Post):
-    index=find_post(id)
+    index=find_index_post(id)
     if index == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"Post with id {id} is not found")
     post_dict=post.dict()

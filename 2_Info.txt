@@ -1,0 +1,31 @@
+security = pip install passlib[bcrypt] = for hashing
+
+JWT Token Authentication:-
+==========================
+HEADER: ALGORITHM & TOKEN TYPE
+===============================
+"alg": "HS256",
+"typ": "JWT"
+
+PAYLOAD: DATA
+=================
+{
+
+"sub": "1234567890"
+"name": "John Doe",
+"iat": 1516239022
+
+}
+
+VERIFY SIGNATURE
+=====================
+HMACSHA256(
+base64Ur1Encode(header) +"
+base64Ur1Encode(payload),
+your-256-bit-secret
+
+secret base64 encoded
+
++
+
+)

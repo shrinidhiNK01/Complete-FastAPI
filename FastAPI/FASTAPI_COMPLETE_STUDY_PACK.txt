@@ -1,0 +1,165 @@
+COMPLETE FASTAPI API DEVELOPMENT STUDY PACK
+
+This is the plain text revision version. The deeper documentation is split into FASTAPI_*.md files in this outputs folder.
+
+SECTION 1: API BASICS
+
+An API lets software systems communicate. A client sends an HTTP request and the server returns an HTTP response, usually JSON.
+
+HTTP methods:
+GET reads data.
+POST creates data.
+PUT replaces/updates data.
+PATCH partially updates data.
+DELETE removes data.
+
+Common status codes:
+200 OK, 201 Created, 204 No Content, 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 409 Conflict, 422 Validation Error, 500 Internal Server Error.
+
+SECTION 2: FASTAPI BASICS
+
+FastAPI is a Python framework for building APIs. It uses type hints and Pydantic for validation and automatically creates docs at /docs and /redoc.
+
+First app:
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def root():
+    return {"message": "Hello World"}
+
+Run:
+uvicorn main:app --reload
+
+SECTION 3: PATHS, QUERY PARAMS, BODY
+
+Path parameter:
+/posts/{id}
+
+Query parameter:
+/posts?limit=10&skip=0&search=python
+
+Request body is validated with Pydantic models.
+
+Path order matters. Fixed routes like /posts/latest should come before /posts/{id}.
+
+SECTION 4: PYDANTIC
+
+Pydantic validates input and serializes output.
+
+Request schemas define what the client sends.
+Response schemas define what the API returns.
+
+In Pydantic v2, use ConfigDict(from_attributes=True) for ORM output.
+
+SECTION 5: CRUD
+
+CRUD means Create, Read, Update, Delete.
+
+Start with in-memory arrays for learning, then move to database because arrays lose data on restart and cannot support production.
+
+SECTION 6: POSTGRESQL AND SQL
+
+PostgreSQL is a relational database. Data is stored in tables with rows and columns.
+
+SQL commands:
+CREATE TABLE creates table.
+INSERT adds rows.
+SELECT reads rows.
+WHERE filters rows.
+ORDER BY sorts rows.
+LIMIT/OFFSET paginates.
+UPDATE changes rows.
+DELETE removes rows.
+JOIN combines tables.
+
+Foreign keys connect tables. Example: posts.owner_id references users.id.
+
+SECTION 7: SQLALCHEMY
+
+SQLAlchemy is an ORM. It maps Python classes to database tables.
+
+SQLAlchemy models define tables. Pydantic schemas define request/response data.
+
+get_db dependency creates a database session per request and closes it after request.
+
+SECTION 8: ALEMBIC
+
+Alembic is a migration tool. It version-controls schema changes.
+
+Commands:
+alembic revision --autogenerate -m "message"
+alembic upgrade head
+alembic downgrade -1
+
+Use Alembic in production instead of relying on create_all.
+
+SECTION 9: USERS AND AUTH
+
+Users register with email and password. Passwords must be hashed using bcrypt/passlib. Never store plain passwords.
+
+Login verifies email and password, then creates a JWT access token.
+
+Client sends token:
+Authorization: Bearer <token>
+
+Protected routes use Depends(get_current_user).
+
+SECTION 10: ROUTERS
+
+Routers split endpoints by feature:
+auth.py, user.py, post.py, vote.py.
+
+Prefix groups paths. Tags organize docs.
+
+SECTION 11: RELATIONSHIPS AND VOTES
+
+A user owns many posts. A post belongs to one user.
+
+Votes table connects users and posts. Composite primary key user_id + post_id prevents duplicate likes.
+
+Joins allow returning posts with vote counts.
+
+SECTION 12: ENV VARS AND CORS
+
+Environment variables store config such as database URL, password, secret key, algorithm, and token expiry.
+
+CORS allows browser frontends from other origins to call your API. Configure allowed origins carefully in production.
+
+SECTION 13: DEPLOYMENT
+
+Production deployment needs:
+environment variables, production database, Alembic migrations, Gunicorn/Uvicorn, systemd service, NGINX reverse proxy, domain, SSL/HTTPS, firewall, logs, and CI/CD.
+
+Ubuntu flow:
+create VM, update packages, install Python/Postgres, create app user, clone repo, create venv, install requirements, configure env vars, run migrations, start Gunicorn, create systemd service, configure NGINX, enable SSL, set firewall.
+
+SECTION 14: DOCKER
+
+Docker packages the API into a container.
+
+Docker Compose can run API and PostgreSQL together.
+
+Use bind mounts for development. Use named volumes for database persistence.
+
+SECTION 15: TESTING
+
+Use pytest and FastAPI TestClient.
+
+Test:
+root endpoint, create user, login, token validation, unauthorized routes, create posts, get posts, update/delete ownership, voting.
+
+Use a separate test database. Override get_db dependency. Use fixtures for client, session, test user, token, authorized client, and test posts.
+
+SECTION 16: CI/CD
+
+CI runs tests automatically on push or pull request. CD deploys after tests pass.
+
+GitHub Actions can:
+checkout code, setup Python, install dependencies, start PostgreSQL service, run migrations, run pytest, build Docker image, deploy to platform or Ubuntu.
+
+SECTION 17: FINAL SUMMARY
+
+FastAPI receives HTTP requests, validates data with Pydantic, runs route logic, talks to PostgreSQL through SQLAlchemy, manages schema changes with Alembic, authenticates users with hashed passwords and JWT tokens, protects routes with dependencies, organizes endpoints with routers, supports relationships and joins, tests with pytest/TestClient, and deploys with Docker or Ubuntu plus Gunicorn, systemd, NGINX, SSL, firewall, and CI/CD.
